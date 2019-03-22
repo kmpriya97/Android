@@ -1,0 +1,77 @@
+<resources>
+    <string name="app_name">ProductTracking</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="hint_uid">User Id*</string>
+    <string name="hint_password">Password*</string>
+    <string name="btnsubmit">Submit</string>
+    <string name="btncancel">CANCEL</string>
+    <string name="btnok">OK</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="sales_order">SALES ORDER</string>
+    <string name="alphanumeric">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</string>
+    <string name="exit_text">Please click BACK again to exit</string>
+    <string name="hint_sales_ordnum">Sales Order Number*</string>
+    <string name="sonumber">S.O Number</string>
+    <string name="hint_sales_orddate">Sales Order Date*</string>
+    <string name="hint_cus_name">Customer Name*</string>
+    <string name="hint_country">Country</string>
+    <string name="hint_towel_name">Towel Name</string>
+    <string name="hint_towel_clr">Towel Color</string>
+    <string name="hint_towel_qty">Towel Quanity</string>
+    <string name="header_sales_order">SALES ORDER</string>
+    <string name="order_progress">Order Progress</string>
+    <string name="progressinit">0%</string>
+    <string name="grade_a">Grade A</string>
+    <string name="grade_b">Grade B</string>
+    <string name="total">Total</string>
+    <string name="select_fabric">Select Fabric</string>
+    <string name="fabric_process">Fabric Process</string>
+    <string name="d1">D1</string>
+    <string name="d2">D2</string>
+    <string name="d3">D3</string>
+    <string name="d4">D4</string>
+    <string name="d5">D5</string>
+    <string name="d6">D6</string>
+    <string name="length_progress">Cross Cutting</string>
+    <string name="stitch">Stitching</string>
+    <string name="grade_c">Grade C</string>
+
+
+    <!--Error Message-->
+    <string name="email_error">Please enter the emailId</string>
+    <string name="pwd_error">Please enter the password</string>
+    <string name="no_internet_connection">No Internet connection</string>
+    <string name="warning_empty_allfields">Please enter all the fields</string>
+    <string name="warning_invalid_email">Please enter valid Email Id</string>
+    <string name="warning_incorrect_password">Password should contain atleast 6 to 10 characters</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_dashborad</item>
+        <item>@string/nav_item_configuration</item>
+        <item>@string/nav_item_indent</item>
+        <item>@string/nav_item_po</item>
+        <item>@string/nav_item_so</item>
+        <item>@string/nav_item_reset</item>
+        <item>@string/nav_item_logout</item>
+    </string-array>
+
+
+    <string name="nav_item_dashborad">Dashboard</string>
+    <string name="nav_item_configuration">Configuration</string>
+    <string name="nav_item_indent">Indent</string>
+    <string name="nav_item_po">Purchase Order</string>
+    <string name="nav_item_so">Sales Order</string>
+    <string name="nav_item_reset">Reset</string>
+    <string name="nav_item_logout">Logout</string>
+
+
+    <string name="yarn_name">Yarn Name</string>
+    <string name="country">Country</string>
+    <string name="qty">Qty</string>
+    <string name="val1">Cotton Fine</string>
+    <string name="val2">Australia</string>
+    <string name="val3">1500</string>
+
+</resources>

@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">JsonPost</string>
+
+    <string name="save">Save</string>
+    <string name="etname">Name</string>
+    <string name="networkinfo">Network Info</string>
+</resources>

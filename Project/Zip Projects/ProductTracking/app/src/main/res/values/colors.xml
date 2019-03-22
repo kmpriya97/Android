@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffa200</color>
+    <color name="colorPrimaryDark">#5e1c0d</color>
+    <color name="colorAccent">#EF9A08</color>
+    <color name="colorinputouter">#ffa200</color>
+    <color name="colorinputext">#000000</color>
+    <color name="colorsigninheader">#d75415</color>
+    <color name="colorbtntext">#ffffff</color>
+    <color name="colordiivder">#B7B7B7</color>
+    <color name="colordrawerbg">#fafafa</color>
+    <color name="colordrawertitile">#d75415</color>
+    <color name="colorgray">#3a4c66</color>
+    <color name="colorFilled">#FF2B23</color>
+    <color name="totalVal">#D75415</color>
+    <color name="line">#c6c6c6</color>
+    <color name="colorout">#808080</color>
+
+    <color name="ColorAUS">#FF7800</color>
+    <color name="ColorDivider">#E7E7E7</color>
+    <color name="yarn">#787978</color>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="color_input_border">#6d6d6d</color>
+</resources>
