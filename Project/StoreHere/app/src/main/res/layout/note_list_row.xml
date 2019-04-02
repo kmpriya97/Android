@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+
+    <TextView
+        android:id="@+id/dot"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dot_height"
+        android:layout_marginRight="@dimen/dot_margin_right"
+        android:layout_marginTop="25dp"
+        android:includeFontPadding="false"
+        android:textColor="@color/colorAccent"
+        android:lineSpacingExtra="0dp"
+        android:textSize="@dimen/dot_text_size" />
+
+    <TextView
+        android:id="@+id/timestamp_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_toRightOf="@id/dot"
+        android:textColor="@color/timestamp"
+        android:textSize="@dimen/timestamp" />
+    <TextView
+        android:id="@+id/title_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timestamp_row"
+        android:layout_toRightOf="@id/dot"
+        android:textColor="@color/note_list_text"
+        android:padding="5dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/note_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_below="@id/title_row"
+        android:layout_toRightOf="@id/dot"
+        android:textColor="@color/note_list_text"
+        android:textSize="@dimen/note_list_text" />
+
+
+    </RelativeLayout>
