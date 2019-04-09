@@ -18,14 +18,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     ArrayList<DataModel> mValues;
     Context mContext;
     protected ItemListener mListener;
+    protected View.OnClickListener clickListener;
 
     public RecyclerViewAdapter(Context context, ArrayList<DataModel> values, ItemListener itemListener) {
 
         mValues = values;
         mContext = context;
-        mListener=itemListener;
+        mListener = itemListener;
     }
 
+    /*  public RecyclerViewAdapter(Context context, ArrayList<DataModel> values, View.OnClickListener clickListener) {
+
+          mValues = values;
+          mContext = context;
+          clickListener=clickListener;
+      }*/
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView textView;
@@ -35,21 +42,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public ViewHolder(View v) {
 
-            super(v);
+            super( v );
 
-            v.setOnClickListener(this);
-            textView = (TextView) v.findViewById(R.id.textView);
-            imageView = (ImageView) v.findViewById(R.id.imageView);
-            relativeLayout = (RelativeLayout) v.findViewById(R.id.relativeLayout);
+            v.setOnClickListener( this );
+            textView = (TextView) v.findViewById( R.id.textView );
+            imageView = (ImageView) v.findViewById( R.id.imageView );
+            relativeLayout = (RelativeLayout) v.findViewById( R.id.relativeLayout );
 
         }
 
         public void setData(DataModel item) {
             this.item = item;
 
-            textView.setText(item.text);
-            imageView.setImageResource(item.drawable);
-            relativeLayout.setBackgroundColor(Color.parseColor(item.color));
+            textView.setText( item.text );
+            imageView.setImageResource( item.drawable );
+            relativeLayout.setBackgroundColor( Color.parseColor( item.color ) );
 
         }
 
@@ -57,7 +64,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         @Override
         public void onClick(View view) {
             if (mListener != null) {
-                mListener.onItemClick(item);
+                //  mListener.onItemClick(item);
+                mListener.onItemClick( item, this.getPosition() );
+             //   mListener.onItemClick( item, this.getPosition(), (int) getItemId() );
             }
         }
     }
@@ -65,14 +74,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(mContext).inflate(R.layout.recycler_view_item, parent, false);
+        View view = LayoutInflater.from( mContext ).inflate( R.layout.recycler_view_item, parent, false );
 
-        return new ViewHolder(view);
+        return new ViewHolder( view );
     }
 
     @Override
     public void onBindViewHolder(ViewHolder Vholder, int position) {
-        Vholder.setData(mValues.get(position));
+        Vholder.setData( mValues.get( position ) );
 
     }
 
@@ -83,6 +92,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public interface ItemListener {
-        void onItemClick(DataModel item);
+        void onItemClick(DataModel item, int position);
+
+     //   void onItemClick(DataModel item, int position, int ItemId);
+        //    void onItemClick(DataModel item, int position,int count);
+
+
     }
 }

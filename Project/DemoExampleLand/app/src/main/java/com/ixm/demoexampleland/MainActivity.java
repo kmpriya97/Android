@@ -47,15 +47,23 @@ public class MainActivity extends AppCompatActivity implements RecyclerViewAdapt
     String ID = "id";
     String NAME = "name";
     String COUNT = "count";
+    @BindView(R.id.recycler)
+    RecyclerView recycler_View;
+    int i = 7;
+    int i1 = 6;
+
+    int tempPosition;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-int position;
+    int position;
     ImageButton ivBtn;
-
+    int itCount = 1;
+    DataModel item;
     ListView listView, listView1;
-
+    public static final int REQUEST_CODE = 1;
+    String TAG = "NewTAG";
     String[] Type = new String[]{"Type 1", "Type 2", "Type 3"};
-
+    String temp;
     ArrayList<DataModel> arrayList;
     Context context = this;
     ModelNew modelNew;
@@ -70,7 +78,9 @@ int position;
     int itemCount3 = 1;
     int itemCount4 = 1;
     int itemCount5 = 1;
-    String Items;
+    int itemCount6 = 1;
+
+    String textItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,10 +111,13 @@ int position;
             @Override
             public void onClick(View v) {
                 //finish();
+               /* Intent intent = new Intent( MainActivity.this, SecondActivity.class );
+                startActivity( intent );*/
                 Intent intent = new Intent( MainActivity.this, SecondActivity.class );
-                startActivity( intent );
+                startActivityForResult( intent, REQUEST_CODE );
             }
         } );
+
         Calendar c = Calendar.getInstance();
         mYear = c.get( Calendar.YEAR );
         mMonth = c.get( Calendar.MONTH );
@@ -125,90 +138,47 @@ int position;
 
     }
 
-    /*   void JsonCreate() {
-           JSONObject data1 = new JSONObject();
-           try {
-               data1.put( "id", "1" );
-               data1.put( "name", "Item 1" );
-               data1.put( "count", "0" );
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            super.onActivityResult( requestCode, resultCode, data );
 
-           } catch (JSONException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-           }
+            if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
+                position = 6;
+                String requiredValue = data.getStringExtra( "key" );
+                arrayList.add( new DataModel( "Item " + i, R.drawable.sample_5, "#0A9B88" ) );
 
-           JSONObject data2 = new JSONObject();
-           try {
-               data2.put( "id", "2" );
-               data2.put( "name", "Item 2" );
-               data2.put( "count", "0" );
+                RecyclerViewAdapter adapter = new RecyclerViewAdapter( this, arrayList, this );
+                recycler_View.setAdapter( adapter );
+                AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager( this, 500 );
+                recycler_View.setLayoutManager( layoutManager );
+                adapter.notifyItemChanged( position );
 
-           } catch (JSONException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-           }
-           JSONObject data3 = new JSONObject();
-           try {
-               data3.put( "id", "3" );
-               data3.put( "name", "Item 3" );
-               data3.put( "count", "0" );
+                configModelList.add( new ModelNew( configModelList.size(), "Item " + i, "0" ) );
+                configurationAdapter = new AdapterNew( configModelList );
+                Log.i( "configModelList.size", "getListItems: " + configModelList.size() );
+                configurationAdapter = new AdapterNew( configModelList );
+                recyclerView.setHasFixedSize( true );
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getApplicationContext() );
+                linearLayoutManager.setOrientation( LinearLayoutManager.VERTICAL );
+                recyclerView.setLayoutManager( linearLayoutManager );
+                recyclerView.addItemDecoration( new SimpleDividerItemDecoration( this ) );
+                recyclerView.setItemAnimator( new DefaultItemAnimator() );
+                recyclerView.setAdapter( configurationAdapter );
+                configurationAdapter.notifyDataSetChanged();
+                Log.i( "####", "onActivityResult: " + position );
+                position++;
+                Log.i( "onAc", "onActivityResult: " + position );
+                i++;
 
-           } catch (JSONException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-           }
-           JSONObject data4 = new JSONObject();
-           try {
-               data4.put( "id", "4" );
-               data4.put( "name", "Item 4" );
-               data4.put( "count", "0" );
+            }
+        } catch (Exception ex) {
+            Toast.makeText( MainActivity.this, ex.toString(),
+                    Toast.LENGTH_SHORT ).show();
+        }
 
-           } catch (JSONException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-           }
-           JSONObject data5 = new JSONObject();
-           try {
-               data5.put( "id", "5" );
-               data5.put( "name", "Item 5" );
-               data5.put( "count", "0" );
+    }
 
-           } catch (JSONException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-           }
-           JSONObject data6 = new JSONObject();
-           try {
-               data6.put( "id", "6" );
-               data6.put( "name", "Item 6" );
-               data6.put( "count", "0" );
-
-           } catch (JSONException e) {
-               // TODO Auto-generated catch block
-               e.printStackTrace();
-           }
-
-
-           JSONArray jsonArray = new JSONArray();
-
-           jsonArray.put( data1 );
-           jsonArray.put( data2 );
-           jsonArray.put( data3 );
-           jsonArray.put( data4 );
-           jsonArray.put( data5 );
-           jsonArray.put( data6 );
-           JSONObject studentsObj = new JSONObject();
-           try {
-               studentsObj.put( "Items", jsonArray );
-           } catch (JSONException e) {
-               e.printStackTrace();
-           }
-
-           String jsonStr = studentsObj.toString();
-           System.out.println( "jsonString: " + jsonStr );
-           Log.i( "jsonString", "JsonCreate: " + jsonStr );
-       }
-   */
     void getListItems() throws JSONException {
 
         String arrRes = "[{\"id\" : \"1\", \"name\" : \"item 1\", \"count\" : \"0\"}, {\"id\" : \"2\", \"name\" : \"item 2\", \"count\" : \"0\"}, {\"id\" : \"3\", \"name\" : \"item 3\", \"count\" : \"0\"}, {\"id\" : \"4\", \"name\" : \"item 4\", \"count\" : \"0\"}, {\"id\" : \"5\", \"name\" : \"item 5\", \"count\" : \"0\"}, {\"id\" : \"6\", \"name\" : \"item 6\", \"count\" : \"0\"}]";
@@ -246,11 +216,11 @@ int position;
             recyclerView.setAdapter( configurationAdapter );
             configurationAdapter.notifyDataSetChanged();
         }
+
     }
 
 
     void setValues() {
-        RecyclerView recyclerView = findViewById( R.id.recycler );
         arrayList = new ArrayList<>();
         arrayList.add( new DataModel( "Item 1", R.drawable.sample_0, "#09A9FF" ) );
         arrayList.add( new DataModel( "Item 2", R.drawable.sample_1, "#3E51B1" ) );
@@ -259,9 +229,9 @@ int position;
         arrayList.add( new DataModel( "Item 5", R.drawable.sample_4, "#F94336" ) );
         arrayList.add( new DataModel( "Item 6", R.drawable.sample_5, "#0A9B88" ) );
         RecyclerViewAdapter adapter = new RecyclerViewAdapter( this, arrayList, this );
-        recyclerView.setAdapter( adapter );
+        recycler_View.setAdapter( adapter );
         AutoFitGridLayoutManager layoutManager = new AutoFitGridLayoutManager( this, 500 );
-        recyclerView.setLayoutManager( layoutManager );
+        recycler_View.setLayoutManager( layoutManager );
     }
 
     final Calendar myCalendar = Calendar.getInstance();
@@ -284,12 +254,14 @@ int position;
         tvDate.setText( sdf.format( myCalendar.getTime() ) );
     }
 
-    @Override
+    /*@Override
     public void onItemClick(DataModel item) {
         Toast.makeText( getApplicationContext(), item.text + " is clicked", Toast.LENGTH_SHORT ).show();
+        Log.i( TAG, "onItemClick: " + item );
+        Log.i( TAG, "onItemClick: " + item.text );
         try {
             if ((item.text == "Item 1") && (itemCount >= 0)) {
-                position=0;
+                position = 0;
                 String count = String.valueOf( itemCount );
                 Toast.makeText( context, item.text + " Count is " + count, Toast.LENGTH_SHORT ).show();
                 Log.i( "##", "onItemClick: " + item.text );
@@ -299,56 +271,53 @@ int position;
                 itemCount++;
 
             } else if ((item.text == "Item 2") && (itemCount1 >= 0)) {
-                position=1;
+                position = 1;
                 String count = String.valueOf( itemCount1 );
                 Toast.makeText( context, item.text + " Count is " + count, Toast.LENGTH_SHORT ).show();
                 Log.i( "##", "onItemClick: " + item.text );
                 Log.i( "##", "onItemClick: " + count );
                 configModelList.get( position ).setItemCount( count );
                 configurationAdapter.notifyDataSetChanged();
-               // configModelList.add( new ModelNew( 2, item.text, count ) );
 
                 itemCount1++;
             } else if ((item.text == "Item 3") && (itemCount2 >= 0)) {
-                position=2;
+                position = 2;
                 String count = String.valueOf( itemCount2 );
                 Toast.makeText( context, item.text + " Count is " + count, Toast.LENGTH_SHORT ).show();
                 Log.i( "##", "onItemClick: " + item.text );
                 Log.i( "##", "onItemClick: " + count );
-                //  configModelList.add( new ModelNew( 3, item.text, count ) );
                 configModelList.get( position ).setItemCount( count );
                 configurationAdapter.notifyDataSetChanged();
                 itemCount2++;
             } else if ((item.text == "Item 4") && (itemCount3 >= 0)) {
-                position=3;
+                position = 3;
                 String count = String.valueOf( itemCount3 );
                 Toast.makeText( context, item.text + " Count is " + count, Toast.LENGTH_SHORT ).show();
                 Log.i( "##", "onItemClick: " + item.text );
                 Log.i( "##", "onItemClick: " + count );
                 configModelList.get( position ).setItemCount( count );
                 configurationAdapter.notifyDataSetChanged();
-                //  configModelList.add( new ModelNew( 4, item.text, count ) );
                 itemCount3++;
             } else if ((item.text == "Item 5") && (itemCount4 >= 0)) {
-                position=4;
+                position = 4;
                 String count = String.valueOf( itemCount4 );
                 Toast.makeText( context, item.text + " Count is " + count, Toast.LENGTH_SHORT ).show();
                 Log.i( "##", "onItemClick: " + item.text );
                 Log.i( "##", "onItemClick: " + count );
                 configModelList.get( position ).setItemCount( count );
                 configurationAdapter.notifyDataSetChanged();
-                // configModelList.add( new ModelNew( 5, item.text, count ) );
                 itemCount4++;
             } else if ((item.text == "Item 6") && (itemCount5 >= 0)) {
-                position=5;
+                position = 5;
                 String count = String.valueOf( itemCount5 );
                 Toast.makeText( context, item.text + " Count is " + count, Toast.LENGTH_SHORT ).show();
                 Log.i( "##", "onItemClick: " + item.text );
                 Log.i( "##", "onItemClick: " + count );
                 configModelList.get( position ).setItemCount( count );
                 configurationAdapter.notifyDataSetChanged();
-                //   configModelList.add( new ModelNew( 6, item.text, count ) );
                 itemCount5++;
+            }
+            if (item.text.contains( "Item" ) && (itCount >= 0)) {
             }
             configurationAdapter = new AdapterNew( configModelList );
             recyclerView.setHasFixedSize( true );
@@ -371,5 +340,60 @@ int position;
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }*/
+
+
+    @Override
+    public void onItemClick(DataModel item, int position) {
+        Toast.makeText( getApplicationContext(), item.text + " is clicked", Toast.LENGTH_SHORT ).show();
+        Log.i( TAG, "onItemClick: " + item );
+        Log.i( TAG, "onItemClick: " + item.text );
+        Log.i( TAG, "onItemClick: " + position );
+        Log.i( TAG, "onItemClick: " + item.count );
+        textItem = item.text;
+
+        try {
+            if (tempPosition != position) {
+                itCount = 1;
+            }
+            if ((position >= 0)) {
+                String count = String.valueOf( itCount );
+                Toast.makeText( context, item.text + " Count is " + count, Toast.LENGTH_SHORT ).show();
+                Log.i( "##", "onItemClick: " + item.text );
+                Log.i( "##", "onItemClick: " + count );
+                configModelList.get( position ).setItemCount( count );
+                configurationAdapter.notifyDataSetChanged();
+                itCount++;
+                tempPosition = position;
+
+            }
+
+            tempPosition = position;
+            configurationAdapter = new AdapterNew( configModelList );
+            recyclerView.setHasFixedSize( true );
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager( getApplicationContext() );
+            linearLayoutManager.setOrientation( LinearLayoutManager.VERTICAL );
+            recyclerView.setLayoutManager( linearLayoutManager );
+            recyclerView.addItemDecoration( new SimpleDividerItemDecoration( this ) );
+            recyclerView.setItemAnimator( new DefaultItemAnimator() );
+            recyclerView.setAdapter( configurationAdapter );
+            configurationAdapter.notifyDataSetChanged();
+            new ModelNew().getInstance().setData( (ArrayList<ModelNew>) configModelList );
+            Log.i( "MainActivity###", "getConfigurationDetails: " + configModelList.size() );
+
+            if (mp.isPlaying()) {
+                mp.stop();
+                mp.release();
+                mp = MediaPlayer.create( context, R.raw.sound );
+            }
+            mp.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }
+
+
+
